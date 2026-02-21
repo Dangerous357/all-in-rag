@@ -9,6 +9,13 @@ import cv2
 from PIL import Image
 
 # 1. 初始化设置
+"""
+如果之前没有安装visual_bge模块和下载Visualized_base_en_v1.5.pth模型权重,需要完成:
+    1. cd code/C3/visual_bge
+    2. pip install -e .
+    3. cd ..
+    4. python download_model.py
+"""
 MODEL_NAME = "BAAI/bge-base-en-v1.5"
 MODEL_PATH = "../../models/bge/Visualized_base_en_v1.5.pth"
 DATA_DIR = "../../data/C3"
