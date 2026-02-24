@@ -15,6 +15,9 @@ from PIL import Image
     2. pip install -e .
     3. cd ..
     4. python download_model.py
+若代码运行出现报错（未安装cv2）：
+    ImportError: libgl.so.1 cannot open shared object file no such file or directory
+    执行 sudo apt-get install python3-opencv 安装依赖库
 """
 MODEL_NAME = "BAAI/bge-base-en-v1.5"
 MODEL_PATH = "../../models/bge/Visualized_base_en_v1.5.pth"
