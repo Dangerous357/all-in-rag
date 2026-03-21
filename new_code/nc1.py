@@ -1,7 +1,6 @@
-from langchain.agents import create_react_agent, AgentExecutor
+from langchain.agents import create_agent
 import os
 from langchain_openai import ChatOpenAI
-from langchain_core.prompts import PromptTemplate
 from langchain_core.tools import tool
 
 
@@ -12,31 +11,7 @@ def get_weather(city: str) -> str:
     return f"It's always sunny in {city}!"
 
 
-## 2. 设计prompt(需要按照ReAct的格式来设计prompt)
-template = """Answer the following questions as best you can. You have access to the following tools:
-
-{tools}
-
-Use the following format:
-
-Question: the input question you must answer
-Thought: you should always think about what to do
-Action: the action to take, should be one of [{tool_names}]
-Action Input: the input to the action
-Observation: the result of the action
-... (this Thought/Action/Action Input/Observation can repeat N times)
-Thought: I now know the final answer
-Final Answer: the final answer to the original input question
-
-Begin!
-
-Question: {input}
-Thought: {agent_scratchpad}"""
-
-prompt = PromptTemplate.from_template(template)
-
-
-## 3. 配置语言模型
+## 2. 配置语言模型
 llm = ChatOpenAI(
 	model="qwen-flash",
 	temperature=0.7,
@@ -45,22 +20,15 @@ llm = ChatOpenAI(
 	base_url="https://dashscope-intl.aliyuncs.com/compatible-mode/v1")
 
 
-## 4. 创建ReAct Agent
-agent = create_react_agent(
-    llm=llm,
+## 3. 创建ReAct Agent
+agent = create_agent(
+    model=llm,
     tools=[get_weather],
-    prompt=prompt,
-)
-
-agent_executor = AgentExecutor(
-    agent=agent, 
-    tools=[get_weather], 
-    verbose=True,
-    handle_parsing_errors=True
+    system_prompt="You are a helpful assistant",
 )
 
 
-## 5. 执行Agent
-agent_executor.invoke(
-    {"input": "what is the weather in xian?"}
-)
+## 4. 执行Agent
+print(agent.invoke(
+    {"messages": [{"role": "user", "content": "what is the weather in Xian?"}]}
+))
