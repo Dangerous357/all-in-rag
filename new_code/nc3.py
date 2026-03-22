@@ -1,4 +1,5 @@
 from langchain.agents import create_agent
+from langchain.agents.structured_output import ToolStrategy
 import os
 from langchain_openai import ChatOpenAI
 # from langchain_core.tools import tool
@@ -38,19 +39,26 @@ llm = ChatOpenAI(
 
 
 ## 3. 创建Agent
+## 3.1 设置回答结构
+@dataclass
+class ResponseFormat:
+    """Response schema for the agent."""
+    punny_response: str  # A punny response
+    weather_conditions: str | None = None  # Any interesting information about the weather if available
+## 3.2 创建Agent并指定回答结构
 agent = create_agent(
     model=llm,
-    tools=[get_weather, get_user_location],  # 将工具运行时上下文工具也加入工具列表
-    context_schema=Context,  # 指定工具运行时上下文结构
+    tools=[get_weather, get_user_location],
+    context_schema=Context,
     system_prompt="""You are a helpful assistant, 
         if a user asks about the weather but doesn't specify a location, 
         use the get_user_location tool to find out where they are and provide the weather for that location.""",
-        # 这里的system_prompt中明确告诉Agent在用户没有指定位置时要调用get_user_location工具来获取用户位置
+    response_format=ToolStrategy(ResponseFormat),  # 指定Agent的回答结构
 )
 
 
 ## 4. 执行Agent
 print(agent.invoke(
     {"messages": [{"role": "user", "content": "what is the weather outside?"}]},
-    context=Context(user_id="2")  # 传入工具运行时上下文
+    context=Context(user_id="1")
 ))
