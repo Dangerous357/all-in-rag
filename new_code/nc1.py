@@ -20,7 +20,7 @@ llm = ChatOpenAI(
 	base_url="https://dashscope-intl.aliyuncs.com/compatible-mode/v1")
 
 
-## 3. 创建ReAct Agent
+## 3. 创建Agent
 agent = create_agent(
     model=llm,
     tools=[get_weather],
