@@ -203,11 +203,11 @@ all-in-rag/
 
 - 🚨 **Bug报告**：发现问题请提交 [Issue](https://github.com/datawhalechina/all-in-rag/issues)
 - 💭 **教程建议**：有好的想法欢迎在 [Discussions](https://github.com/datawhalechina/all-in-rag/discussions) 中讨论
-- 📚 **文档改进**：帮助完善文档内容和示例代码（当前仅支持第七章优质内容pr）
+- 📚 **文档改进**：帮助完善文档内容和示例代码（当前仅支持 Extra-chapter 优质内容pr）
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=datawhalechina/all-in-rag&type=Date)](https://star-history.com/#datawhalechina/all-in-rag&Date)
+[![all-in-rag stats](https://datawhalechina.github.io/members-visualization/badges/all-in-rag.png)](https://datawhalechina.github.io/members-visualization/repo-badge?repo=all-in-rag)
 
 <div align="center">
   <p>如果这个项目对你有帮助，请给我们一个 ⭐️</p>
