@@ -88,7 +88,8 @@ def execute_math_action(state: ReActState) -> ReActState:
         state["final_answer"] = ""
     # 所有步骤完成，输出最终数学答案
     elif current_action.startswith("finish"):
-        state["final_answer"] = True
+        match = re.search(r'finish\((.*?)\)', current_action)
+        state["final_answer"] = match.group(1).strip() if match else ""
     return state
 
 # ======================
@@ -127,6 +128,7 @@ if __name__ == "__main__":
     question_exp = "一个商店有100个苹果，第一天卖出30%，第二天卖出剩余的一半，请问还剩多少个苹果？"
     ques = {
         "math_question": question_exp,
+        "now_tool": "",
         "thought": "",
         "action": "",
         "observation": "",
